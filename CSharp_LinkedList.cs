@@ -1,79 +1,79 @@
-// C# program to implement basic stack
-// operations
+// C# Code for Linked List Implementation
 using System;
 
-namespace ImplementStack {
-class Stack {
-	private int[] ele;
-	private int top;
-	private int max;
-	public Stack(int size)
-	{
-		ele = new int[size]; // Maximum size of Stack
-		top = -1;
-		max = size;
+public class StackAsLinkedList {
+
+	StackNode root;
+
+	public class StackNode {
+		public int data;
+		public StackNode next;
+
+		public StackNode(int data) { this.data = data; }
 	}
 
-	public void push(int item)
+	public bool isEmpty()
 	{
-		if (top == max - 1) {
-			Console.WriteLine("Stack Overflow");
-			return;
+		if (root == null) {
+			return true;
+		}
+		else
+			return false;
+	}
+
+	public void push(int data)
+	{
+		StackNode newNode = new StackNode(data);
+
+		if (root == null) {
+			root = newNode;
 		}
 		else {
-			ele[++top] = item;
+			StackNode temp = root;
+			root = newNode;
+			newNode.next = temp;
 		}
+		Console.WriteLine(data + " pushed to stack");
 	}
 
 	public int pop()
 	{
-		if (top == -1) {
+		int popped = int.MinValue;
+		if (root == null) {
 			Console.WriteLine("Stack is Empty");
-			return -1;
 		}
 		else {
-			Console.WriteLine("{0} popped from stack ", ele[top]);
-			return ele[top--];
+			popped = root.data;
+			root = root.next;
 		}
+		return popped;
 	}
 
 	public int peek()
 	{
-		if (top == -1) {
-			Console.WriteLine("Stack is Empty");
-			return -1;
+		if (root == null) {
+			Console.WriteLine("Stack is empty");
+			return int.MinValue;
 		}
 		else {
-			Console.WriteLine("{0} popped from stack ", ele[top]);
-			return ele[top];
+			return root.data;
 		}
 	}
 
-	public void printStack()
+	// Driver code
+	public static void Main(String[] args)
 	{
-		if (top == -1) {
-			Console.WriteLine("Stack is Empty");
-			return;
-		}
-		else {
-			for (int i = 0; i <= top; i++) {
-				Console.WriteLine("{0} pushed into stack", ele[i]);
-			}
-		}
+
+		StackAsLinkedList sll = new StackAsLinkedList();
+
+		sll.push(10);
+		sll.push(20);
+		sll.push(30);
+
+		Console.WriteLine(sll.pop() + " popped from stack");
+
+		Console.WriteLine("Top element is " + sll.peek());
 	}
 }
 
-// Driver program to test above functions
-class Program {
-	static void Main()
-	{
-		Stack p = new Stack(5);
-
-		p.push(10);
-		p.push(20);
-		p.push(30);
-		p.printStack();
-		p.pop();
-	}
-}
-}
+/* This code contributed by PrinciRaj1992 */
